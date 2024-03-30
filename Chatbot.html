@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="author" content="Rafic Roy Hasbini">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="viewport" content="width=device-width,  initial-scale=1.0">
+        <title>Chatbot</title>
+        <style>
+            .chatInputMsg{
+                width: 90%;
+                float: left;
+                resize: None;
+                border-color: transparent;
+                background-color: lightgrey;
+                border-radius: 25px;
+                padding: 20px;
+            }
+            .parentUser {
+                background-color:lightgrey;
+                font-size: large;
+                border-radius: 25px;
+                padding: 7px;
+                width: fit-content;
+            }
+            .parentBot {
+                background-color:lightblue;
+                font-size: large;
+                border-radius: 25px;
+                padding: 7px;
+                width: fit-content;
+            }
+            footer {
+                position: fixed;
+                bottom: 0;
+                width: 90%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="chat">
+            <!-- chat populated by function -->
+        </div>
+        <footer>
+            <form style="padding-top: 25%;">
+                <div>
+                    <textarea class="chatInputMsg" id="chatIn" placeholder="Type a new question"></textarea>
+                </div>
+                <div style="padding-top: auto;">
+                    <input type="submit" onclick="addChatUser(event)">
+                </div>
+            </form>
+        </footer>
+    </body>
+    <script type="text/javascript">
+
+        function addChatUser(event) {
+
+            // prevent page refresh
+            event.preventDefault();
+
+            // capture the input msg
+            const inputObj = document.getElementById("chatIn");
+            let inputMsg = inputObj.value;
+            inputObj.value = "";
+
+            // build the msg box contents
+            const msgBox = document.createElement("p");
+            // add the msg
+            const txtNode = document.createTextNode(inputMsg);
+            msgBox.appendChild(txtNode);
+            msgBox.setAttribute("class", "parentUser");
+
+            // build msg container
+            const msgContainer = document.createElement("div");
+            msgContainer.appendChild(msgBox);
+            msgContainer.setAttribute("style", "width:100%;");
+
+            // append msg box to chat box
+            const chatElement = document.getElementById("chat");
+            chatElement.appendChild(msgContainer);
+
+            // engineer the prompt
+            engnrdP = "Keeping relevance to the topic of 'Food Security and Nutrition', please answer " + inputMsg;
+            console.log("Engineered prompot: " + engnrdP);
+
+            // send to chatbot
+            res = sendReq(engnrdP);
+
+        }
+
+        function sendReq(str) {
+            
+            // input data
+            let data = JSON.stringify(
+                {
+                    "model" : "gpt-3.5-turbo",
+                    "messages" : [
+                        {
+                            "role" : "user",
+                            "content" : str
+                        }
+                    ]
+                }
+            )
+
+            // set up AJAX obj 
+            let xhr = new XMLHttpRequest();
+            //xhr.withCredentials = true;
+            xhr.addEventListener(
+                "readystatechange",
+                function () {
+                    if (this.readyState === 4) {
+                        console.log(this.responseText);
+                        const obj = JSON.parse(this.response);
+                        const msg = obj.choices[0].message.content;
+                        console.log(msg);
+
+                        // return the msg in chat box
+                        const msgBox = document.createElement("p");
+                        const txt = document.createTextNode(msg);
+                        msgBox.appendChild(txt);
+                        msgBox.setAttribute("class", "parentBot");
+
+                        // place msgBox in msg container
+                        const msgContainer = document.createElement("div");
+                        msgContainer.appendChild(msgBox);
+                        msgContainer.setAttribute("style", "width:100%; display: flex; justify-content: flex-end");
+
+                        //push msg container into chat element
+                        const chatElement = document.getElementById("chat");
+                        chatElement.appendChild(msgContainer);
+                    }
+                }
+            );
+
+            xhr.open("POST", "https://api.openai.com/v1/chat/completions");
+            xhr.setRequestHeader("Authorization", "Bearer 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");
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            // send
+            xhr.send(data);
+        }
+
+    </script>
+</html>
