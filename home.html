@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Macroeconomic Food Security App</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            background: #0e3b96;
+            color: white;
+            padding: 10px 20px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .logo-placeholder {
+            background: grey;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .country-flag {
+            float: right;
+            width: 50px;
+            height: 30px;
+            background: grey;
+        }
+        .selectors {
+            margin-top: 20px;
+        }
+        select, .button-group button {
+            padding: 10px;
+            margin: 5px;
+        }
+        .button-group button {
+            background: #ddd;
+            border: none;
+            cursor: pointer;
+        }
+        .button-group button.active {
+            background: #0e3b96;
+            color: white;
+        }
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .icon {
+            background: grey;
+            width: 60px;
+            height: 60px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+        .footer {
+            margin-top: auto;
+            background: #0e3b96;
+            color: white;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <span class="logo-placeholder"></span>
+        Macroeconomic Researcher Food Security Time Series Dashboard
+        <div class="country-flag"></div>
+    </div>
+
+    <div class="selectors">
+        <div>
+            <label for="country">Select Country:</label>
+            <select id="country">
+                <option value="china">China</option>
+                <option value="india">India</option>
+                <option value="usa">USA</option>
+            </select>
+        </div>
+        <div class="button-group">
+            <button id="researcher" class="active">Macroeconomic Researcher</button>
+            <button id="government-official">Government Official</button>
+        </div>
+    </div>
+
+    <div class="icon-container">
+        <div class="icon">Icon 1</div>
+        <div class="icon">Icon 2</div>
+        <div class="icon">Icon 3</div>
+    </div>
+
+    <div class="footer">
+        Welcome to Macroeconomic Food Security App
+    </div>
+
+    <script>
+        document.getElementById('researcher').addEventListener('click', function() {
+            this.classList.add('active');
+            document.getElementById('government-official').classList.remove('active');
+        });
+
+        document.getElementById('government-official').addEventListener('click', function() {
+            this.classList.add('active');
+            document.getElementById('researcher').classList.remove('active');
+        });
+    </script>
+
+</body>
+</html>
