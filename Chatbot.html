@@ -8,6 +8,11 @@
         <meta name="viewport" content="width=device-width,  initial-scale=1.0">
         <title>Chatbot</title>
         <style>
+            section {
+                margin-left: 20%;
+                margin-right: 20%;
+                margin-bottom: 10%;
+            }
             .chatInputMsg{
                 width: 90%;
                 float: left;
@@ -23,6 +28,7 @@
                 border-radius: 25px;
                 padding: 7px;
                 width: fit-content;
+                margin-right:60%;
             }
             .parentBot {
                 background-color:lightblue;
@@ -30,18 +36,22 @@
                 border-radius: 25px;
                 padding: 7px;
                 width: fit-content;
+                margin-left: 60%
             }
             footer {
                 position: fixed;
                 bottom: 0;
-                width: 90%;
+                width: 80%;
+                margin-left: 10%;
             }
         </style>
     </head>
-    <body>
-        <div id="chat">
-            <!-- chat populated by function -->
-        </div>
+    <body style="overflow-y: scroll;">
+        <section id="chatSection" style="overflow-y: scroll;">
+            <div id="chat" style="overflow-y: scroll;">
+                <!-- chat populated by function -->
+            </div>
+        </section>
         <footer>
             <form style="padding-top: 25%;">
                 <div>
@@ -80,6 +90,10 @@
             // append msg box to chat box
             const chatElement = document.getElementById("chat");
             chatElement.appendChild(msgContainer);
+
+            let chatSection = document.getElementById("chatSection");
+            chatSection.scrollTop = chatSection.scrollHeight;
+            chatSection.scrollIntoView({block:"end"});
 
             // engineer the prompt
             engnrdP = "Keeping relevance to the topic of 'Food Security and Nutrition', please answer " + inputMsg;
@@ -131,12 +145,17 @@
                         //push msg container into chat element
                         const chatElement = document.getElementById("chat");
                         chatElement.appendChild(msgContainer);
+
+                        let chatSection = document.getElementById("chatSection");
+                        chatSection.scrollTop = chatSection.scrollHeight;
+                        chatSection.scrollIntoView({block:"end"});
+                        
                     }
                 }
             );
 
             xhr.open("POST", "https://api.openai.com/v1/chat/completions");
-            xhr.setRequestHeader("Authorization", "Bearer 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");
+            xhr.setRequestHeader("Authorization", "Bearer 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");
             xhr.setRequestHeader("Content-Type", "application/json");
 
             // send
