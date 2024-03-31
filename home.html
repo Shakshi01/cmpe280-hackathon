@@ -4,94 +4,107 @@
     <meta charset="UTF-8">
     <title>Macroeconomic Food Security App</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+        body, html {
+            height: 100%;
             margin: 0;
             padding: 0;
             background: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background-color: #0e3b96;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-text {
+            margin-left: 10px; 
+            font-size: 30px;
+        }
+        .logo-placeholder {
+            background-image: url('logo.png');
+            width: 100px; 
+            height: 70px; 
+            background-size: cover; 
+            background-position: center; 
+        }
+        .country-flag {
+            background-color: grey; 
+            width: 50px;
+            height: 30px;
+        }
+        .center-box {
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-        .header {
-            background: #0e3b96;
-            color: white;
-            padding: 10px 20px;
-            width: 100%;
-            box-sizing: border-box;
-            text-align: center;
-        }
-        .logo-placeholder {
-            background: grey;
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-        }
-        .country-flag {
-            float: right;
-            width: 50px;
-            height: 30px;
-            background: grey;
-        }
-        .selectors {
-            margin-top: 20px;
+            justify-content: center;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
         select, .button-group button {
             padding: 10px;
-            margin: 5px;
+            margin: 10px 5px;
         }
         .button-group button {
-            background: #ddd;
+            background-color: #ddd;
             border: none;
             cursor: pointer;
         }
         .button-group button.active {
-            background: #0e3b96;
+            background-color: #0e3b96;
             color: white;
         }
         .icon-container {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            align-items: center;
+            margin: 80px 0;
         }
         .icon {
-            background: grey;
+            background-image: url('icon.png'); 
             width: 60px;
             height: 60px;
-            margin: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            background-size: cover;
         }
+
         .footer {
-            margin-top: auto;
-            background: #0e3b96;
+            background-color: #0e3b96;
             color: white;
-            width: 100%;
-            padding: 10px 0;
             text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <span class="logo-placeholder"></span>
-        Macroeconomic Researcher Food Security Time Series Dashboard
-        <div class="country-flag"></div>
-    </div>
+    <header class="header">
+        <div class="logo-placeholder"></div>
+        <div class="header-text">Welcome to Macroeconomic Food Security App</div>
+        <img id="country-flag" src="img_china.png" alt="Country Flag" style="width:50px;height:30px;">
+    </header>
 
-    <div class="selectors">
-        <div>
-            <label for="country">Select Country:</label>
-            <select id="country">
-                <option value="china">China</option>
-                <option value="india">India</option>
-                <option value="usa">USA</option>
-            </select>
-        </div>
+    <div class="center-box">
+        <select id="country">
+            <option value="china">China</option>
+            <option value="india">India</option>
+            <option value="usa">USA</option>
+        </select>
         <div class="button-group">
             <button id="researcher" class="active">Macroeconomic Researcher</button>
             <button id="government-official">Government Official</button>
@@ -99,16 +112,15 @@
     </div>
 
     <div class="icon-container">
-        <div class="icon">Icon 1</div>
-        <div class="icon">Icon 2</div>
-        <div class="icon">Icon 3</div>
+        <div class="icon"></div>
     </div>
 
-    <div class="footer">
+    <footer class="footer">
         Welcome to Macroeconomic Food Security App
-    </div>
+    </footer>
 
     <script>
+
         document.getElementById('researcher').addEventListener('click', function() {
             this.classList.add('active');
             document.getElementById('government-official').classList.remove('active');
@@ -118,6 +130,26 @@
             this.classList.add('active');
             document.getElementById('researcher').classList.remove('active');
         });
+
+        document.getElementById('country').addEventListener('change', function() {
+            var countryFlagImage = document.getElementById('country-flag');
+            switch (this.value) {
+                case 'china':
+                    countryFlagImage.src = 'img_china.png'; // replace with the path to your image for China
+                    break;
+                case 'india':
+                    countryFlagImage.src = 'img_india.png'; // replace with the path to your image for India
+                    break;
+                case 'usa':
+                    countryFlagImage.src = 'img_usa.png'; // replace with the path to your image for USA
+                    break;
+                default:
+                    countryFlagImage.src = 'img_china.png'; // replace with the path to your default image
+                    break;
+            }
+        });
+        
+
     </script>
 
 </body>
