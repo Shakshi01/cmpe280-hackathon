@@ -68,7 +68,7 @@
             margin: 80px 0;
         }
         .icon {
-            background-image: url('icon.png'); 
+            background-image: url('icon_chatgpt.png'); 
             width: 60px;
             height: 60px;
             border-radius: 10px;
@@ -78,7 +78,10 @@
             margin: 0 10px;
             background-size: cover;
         }
-
+        a {
+            text-decoration: none; 
+            color: inherit;
+        }
         .footer {
             background-color: #0e3b96;
             color: white;
@@ -96,7 +99,7 @@
     <header class="header">
         <div class="logo-placeholder"></div>
         <div class="header-text">Welcome to Macroeconomic Food Security App</div>
-        <img id="country-flag" src="img_china.png" alt="Country Flag" style="width:50px;height:30px;">
+        <img id="country-flag" src="img_default.png" alt="Country Flag" style="width:50px;height:30px;">
     </header>
 
     <div class="center-box">
@@ -105,16 +108,17 @@
             <option value="india">India</option>
             <option value="usa">USA</option>
         </select>
+
         <div class="button-group">
-            <button id="researcher" class="active">Macroeconomic Researcher</button>
+            <button id="researcher" class="active" onclick="window.location.href='researcher.html';">Macroeconomic Researcher</button>
             <button id="government-official">Government Official</button>
         </div>
     </div>
-
+    <a href="Chatbot.html">
     <div class="icon-container">
         <div class="icon"></div>
     </div>
-
+</a>
     <footer class="footer">
         Welcome to Macroeconomic Food Security App
     </footer>
@@ -135,16 +139,16 @@
             var countryFlagImage = document.getElementById('country-flag');
             switch (this.value) {
                 case 'china':
-                    countryFlagImage.src = 'img_china.png'; // replace with the path to your image for China
-                    break;
+                    countryFlagImage.src = 'img_china.png';
+                    break;  
                 case 'india':
-                    countryFlagImage.src = 'img_india.png'; // replace with the path to your image for India
-                    break;
+                    countryFlagImage.src = 'img_india.png';
+                    break;  
                 case 'usa':
-                    countryFlagImage.src = 'img_usa.png'; // replace with the path to your image for USA
+                    countryFlagImage.src = 'img_usa.png'; 
                     break;
                 default:
-                    countryFlagImage.src = 'img_china.png'; // replace with the path to your default image
+                    countryFlagImage.src = 'img_default.png';
                     break;
             }
         });

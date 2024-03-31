@@ -179,7 +179,7 @@
             <li class="dropdown">Macroeconomic (USD)
                 <span class="drop-icon">▼</span>
                 <ul class="dropdown-content">
-                    <li>GDP Growth Rage</li>
+                    <li id = "gdpGrowthRate">GDP Growth Rage</li>
                     <li>Gearbox System</li>
                     <li>Gearbox System</li>
                 </ul>
@@ -230,26 +230,18 @@
     </footer>
 
     <script>
-         document.addEventListener('DOMContentLoaded', function() {
-           
-            document.querySelectorAll('.dropdown').forEach(function(dropdown) {
-                dropdown.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    var content = this.querySelector('.dropdown-content');
-                    if (content.style.display === 'block') {
-                        content.style.display = 'none';
-                    } else {
-                        content.style.display = 'block';
-                    }
-                });
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            function toggleDropdown(event) {
+                let dropdownContent = event.currentTarget.nextElementSibling;
+                dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+                event.stopPropagation();
+            }
+    
+            document.querySelectorAll('.drop-icon').forEach(function(icon) {
+                icon.addEventListener('click', toggleDropdown);
             });
     
-            function toggleDropdown(event) {
-              let dropdownContent = event.currentTarget.parentNode.querySelector('.dropdown-content');
-              dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-              event.stopPropagation();
-          }
-              
             function handleFiles(files) {
                 if (files.length) {
                     var reader = new FileReader();
@@ -261,27 +253,29 @@
                 }
             }
     
-            function plotGraphFromFile(fileName) {
-                
-                console.log("Function called with fileName: " + fileName);
-                
-                document.getElementById('graphd').style.border = 'none';
-                document.getElementById('graph1').innerHTML = '<img src="imgm1.png" alt="Graph 1">';
-                document.getElementById('graph2').innerHTML = '<img src="imgm2.png" alt="Graph 2">';
-                document.getElementById('graph3').innerHTML = '<img src="imgm3.png" alt="Graph 3">';
-           
-                console.log("Graph1 innerHTML: " + document.getElementById('graph1').innerHTML);
+            function plotGraphFromFile() {
+                document.getElementById('graph1').innerHTML = '<img src="g1.png" alt="Agricultural Graph 1">';
+                document.getElementById('graph2').innerHTML = '<img src="g2.png" alt="Agricultural Graph 2">';
+                document.getElementById('graph3').innerHTML = '<img src="g3.png" alt="Agricultural Graph 3">';
             }
-
-        document.querySelectorAll('.drop-icon').forEach(function(icon) {
-          icon.addEventListener('click', toggleDropdown);
-      });
-
-      document.getElementById('contributionToAgri').addEventListener('click', function() {
-        plotGraphFromFile('API_NV.AGR.TOTL.ZS_DS2_en_xml_v2_18281.xml');
-    });
-});
+    
+            function plotGDPGraphs() {
+                document.getElementById('graph1').innerHTML = '<img src="imgm1.png" alt="GDP Growth Rate Graph 1">';
+                document.getElementById('graph2').innerHTML = '<img src="imgm2.png" alt="GDP Growth Rate Graph 2">';
+                document.getElementById('graph3').innerHTML = '<img src="imgm3.png" alt="GDP Growth Rate Graph 3">';
+            }
+            document.getElementById('contributionToAgri').addEventListener('click', plotGraphFromFile);
+    
+            var gdpGrowthRateElem = document.getElementById('gdpGrowthRate');
+            if(gdpGrowthRateElem) {
+                gdpGrowthRateElem.addEventListener('click', plotGDPGraphs);
+            } else {
+                console.error("Element with ID 'gdpGrowthRate' not found.");
+            }
+    
+        });
     </script>
+    
     
 
 </body>
